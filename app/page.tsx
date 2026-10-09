@@ -59,7 +59,7 @@ export default function Home() {
   const [form, setForm] = useState({
     sekolah: "",
     program: "",
-    tarikh: "",
+    tarikh: new Date().toLocaleDateString("en-CA"),
     masa: "",
     tempat: "",
     penganjur: "",
@@ -128,6 +128,14 @@ export default function Home() {
       )
     );
   }
+  
+  function deletePhoto(index: number) {
+  setPhotos((old) => old.filter((_, i) => i !== index));
+}
+
+function deleteAllPhotos() {
+  setPhotos([]);
+}
 
   function generatePDF() {
     if (!form.program.trim()) {
@@ -586,13 +594,27 @@ export default function Home() {
                       borderRadius: 6,
                     }}
                   />
-                  <label style={{ ...labelStyle, marginTop: 8 }}>
-                    Kapsyen gambar
-                  </label>
                   <input
-                    value={photo.caption}
-                    onChange={(e) => updateCaption(index, e.target.value)}
-                    style={inputStyle}
+  value={photo.caption}
+  onChange={(e) => updateCaption(index, e.target.value)}
+  style={inputStyle}
+/>
+
+<button
+  type="button"
+  onClick={() => deletePhoto(index)}
+  style={{
+    marginTop: 8,
+    padding: "8px 12px",
+    background: "#fee2e2",
+    color: "#b91c1c",
+    border: "1px solid #fecaca",
+    borderRadius: 6,
+    cursor: "pointer",
+  }}
+>
+  ✕ Padam gambar
+</button>
                   />
                 </div>
               ))}
